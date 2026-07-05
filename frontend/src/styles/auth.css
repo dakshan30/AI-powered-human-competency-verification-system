@@ -1,0 +1,454 @@
+input,
+button,
+textarea,
+select {
+  outline: none;
+}
+
+input:focus,
+button:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* =========================================
+   AUTH PAGE
+========================================= */
+
+.auth-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px 20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #edfdf5 0%,
+      #dff7ee 100%
+    );
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+/* =========================================
+   BACKGROUND EFFECTS
+========================================= */
+
+.auth-page::before {
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  background: rgba(62,180,137,0.15);
+
+  border-radius: 50%;
+
+  filter: blur(120px);
+
+  top: -150px;
+  left: -120px;
+}
+
+.auth-page::after {
+  content: "";
+
+  position: absolute;
+
+  width: 400px;
+  height: 400px;
+
+  background: rgba(62,180,137,0.12);
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  bottom: -120px;
+  right: -100px;
+}
+
+/* =========================================
+   AUTH CARD
+========================================= */
+
+.auth-card {
+  width: 100%;
+  max-width: 600px;
+
+  position: relative;
+  z-index: 10;
+
+  padding: 48px;
+
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.55);
+
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.3);
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.08);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.auth-header {
+  text-align: center;
+
+  margin-bottom: 36px;
+}
+
+.auth-header h1 {
+  font-size: 42px;
+
+  color: #1f2937;
+
+  margin-bottom: 12px;
+
+  font-weight: 700;
+}
+
+.auth-header p {
+  color: #6b7280;
+
+  line-height: 1.7;
+
+  font-size: 15px;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+/* =========================================
+   INPUT GROUP
+========================================= */
+
+.input-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  width: 100%;
+}
+
+.input-group label {
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: #374151;
+}
+
+/* =========================================
+   INPUT WRAPPER
+========================================= */
+
+.input-wrapper {
+  position: relative;
+
+  width: 100%;
+}
+
+/* =========================================
+   INPUT ICON
+========================================= */
+
+.input-icon {
+  position: absolute;
+
+  left: 25px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: #9ca3af;
+
+  font-size: 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+/* =========================================
+   INPUT FIELD
+========================================= */
+
+.input-field {
+  width: 100%;
+
+  height: 64px;
+
+  border: 1px solid #e5e7eb;
+
+  border-radius: 16px;
+
+  padding-left: 56px;
+
+  padding-right: 56px;
+
+  font-size: 16px;
+
+  background: rgba(255,255,255,0.92);
+
+  transition: 0.25s ease;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  color: #111827;
+}
+
+.input-field::placeholder {
+  color: #9ca3af;
+}
+
+/* .input-field:focus {
+  border-color: #3eb489;
+
+  background: white;
+
+  box-shadow: none;
+
+  outline: none;
+} */
+
+/* =========================================
+   PASSWORD TOGGLE
+========================================= */
+.password-field {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+
+  right: 24px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  color: #9ca3af;
+
+  font-size: 16px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 6;
+}
+
+/* =========================================
+   ERROR
+========================================= */
+
+.input-error {
+  font-size: 13px;
+
+  color: #dc2626;
+
+  margin-top: 4px;
+}
+
+/* =========================================
+   REMEMBER + FORGOT
+========================================= */
+
+.auth-options {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-top: -6px;
+}
+
+.remember-me {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  font-size: 14px;
+
+  color: #4b5563;
+
+  cursor:pointer;
+}
+
+.remember-me input {
+  accent-color: #3eb489;
+
+  cursor: pointer;
+}
+
+.forgot-link {
+  color: #3eb489;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.forgot-link:hover {
+  opacity: 0.8;
+}
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.auth-submit-btn {
+  width: 180px;
+
+  height: 54px;
+
+  margin: 8px auto 0;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3eb489,
+      #34a97f
+    );
+
+  color: white;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.auth-submit-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 20px
+    rgba(62,180,137,0.2);
+}
+
+.auth-submit-btn:disabled {
+  opacity: 0.7;
+
+  cursor: not-allowed;
+}
+
+/* =========================================
+   TERMS
+========================================= */
+
+.terms-box {
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  color: #6b7280;
+}
+
+.terms-box a {
+  color: #3eb489;
+
+  text-decoration: none;
+
+  font-weight: 600;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.auth-footer {
+  margin-top: 26px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  color: #6b7280;
+}
+
+.auth-footer a {
+  color: #3eb489;
+
+  text-decoration: none;
+
+  font-weight: 600;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .auth-card {
+    padding: 32px 24px;
+
+    border-radius: 22px;
+  }
+
+  .auth-header h1 {
+    font-size: 32px;
+  }
+}

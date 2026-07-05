@@ -1,0 +1,176 @@
+.topbar {
+  height: 90px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 32px;
+
+  background:
+    rgba(255,255,255,0.5);
+
+  backdrop-filter: blur(20px);
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.3);
+}
+
+.topbar-left {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+.menu-btn {
+  width: 46px;
+
+  height: 46px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: white;
+
+  cursor: pointer;
+
+  display: none;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.topbar-search {
+  width: 420px;
+
+  height: 52px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 18px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(255,255,255,0.8);
+
+  color: #9ca3af;
+}
+
+.topbar-search input {
+  flex: 1;
+
+  border: none;
+
+  background: transparent;
+
+  outline: none;
+
+  font-size: 15px;
+}
+
+.topbar-right {
+  display: flex;
+
+  align-items: center;
+
+  gap: 22px;
+}
+
+.notification-btn {
+  width: 50px;
+
+  height: 50px;
+
+  border: none;
+
+  border-radius: 16px;
+
+  background: white;
+
+  position: relative;
+
+  cursor: pointer;
+}
+
+.notification-badge {
+  width: 18px;
+
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  color: white;
+
+  position: absolute;
+
+  top: 8px;
+  right: 8px;
+
+  font-size: 11px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.topbar-profile {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.topbar-avatar {
+  width: 52px;
+
+  height: 52px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #3eb489,
+      #5fd5aa
+    );
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: white;
+
+  font-weight: 700;
+}
+
+.topbar-user-info h4 {
+  font-size: 15px;
+
+  margin-bottom: 4px;
+}
+
+.topbar-user-info span {
+  font-size: 13px;
+
+  color: #6b7280;
+
+  text-transform: capitalize;
+}

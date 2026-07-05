@@ -1,0 +1,262 @@
+.report-header{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+    135deg,
+    #10b981,
+    #0ea5a4,
+    #14b8a6
+    );
+
+    border-radius:28px;
+
+    padding:40px;
+
+    color:white;
+
+    box-shadow:
+    0 20px 50px
+    rgba(16,185,129,.25);
+
+    margin-bottom:35px;
+
+}
+
+.report-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    radial-gradient(
+    circle at top right,
+    rgba(255,255,255,.18),
+    transparent 40%
+    );
+
+}
+
+.report-header>*{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.report-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:24px;
+
+}
+
+.report-icon{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,.15);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:36px;
+
+    backdrop-filter:blur(12px);
+
+}
+
+.report-left h1{
+
+    font-size:38px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.report-left p{
+
+    opacity:.9;
+
+    max-width:600px;
+
+}
+
+.report-right{
+
+    display:flex;
+
+    gap:18px;
+
+    margin-top:35px;
+
+}
+
+.candidate-card{
+
+    background:
+    rgba(255,255,255,.18);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:18px;
+
+    padding:18px 22px;
+
+    display:flex;
+
+    gap:16px;
+
+    align-items:center;
+
+    min-width:280px;
+
+}
+
+.candidate-card svg{
+
+    font-size:28px;
+
+}
+
+.candidate-card span{
+
+    font-size:13px;
+
+    opacity:.8;
+
+}
+
+.candidate-card h3{
+
+    margin-top:5px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+}
+
+.hero-bottom{
+
+    margin-top:35px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+}
+
+.competency-box span{
+
+    font-size:15px;
+
+}
+
+.competency-box h2{
+
+    font-size:70px;
+
+    font-weight:700;
+
+}
+
+.recommendation-badge{
+
+    padding:18px 32px;
+
+    border-radius:50px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    background:white;
+
+}
+
+.recommendation-badge.strong_hire{
+
+    color:#2563eb;
+
+}
+
+.recommendation-badge.hire{
+
+    color:#059669;
+
+}
+
+.recommendation-badge.hold{
+
+    color:#ca8a04;
+
+}
+
+.recommendation-badge.reject{
+
+    color:#dc2626;
+
+}
+
+@media(max-width:950px){
+
+    .report-right{
+
+        flex-direction:column;
+
+    }
+
+    .hero-bottom{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:20px;
+
+    }
+
+    .report-left{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .report-left h1{
+
+        font-size:30px;
+
+    }
+
+}

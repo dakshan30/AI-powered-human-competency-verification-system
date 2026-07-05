@@ -1,0 +1,336 @@
+/* ======================================================
+   AI RESULT PAGE
+====================================================== */
+
+.results-container{
+
+    max-width:1500px;
+
+    margin:40px auto;
+
+    padding:0 30px 60px;
+
+    font-family:'Poppins',sans-serif;
+
+    animation:fadeIn .5s ease;
+
+}
+
+/* ======================================================
+   GRID SYSTEM
+====================================================== */
+
+.score-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:24px;
+
+    margin:35px 0;
+
+}
+
+.analytics-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:24px;
+
+    margin-bottom:35px;
+
+}
+
+/* ======================================================
+   COMMON CARD
+====================================================== */
+
+.result-card{
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    padding:28px;
+
+    border:1px solid #edf2f7;
+
+    box-shadow:
+        0 12px 40px rgba(15,23,42,.06);
+
+    transition:.3s;
+
+}
+
+.result-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 20px 50px rgba(15,23,42,.10);
+
+}
+
+/* ======================================================
+   SECTION TITLE
+====================================================== */
+
+.section-title{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:20px;
+
+}
+
+.section-subtitle{
+
+    color:#64748b;
+
+    font-size:15px;
+
+    margin-top:6px;
+
+}
+
+/* ======================================================
+   QUESTION SECTION
+====================================================== */
+
+.question-section{
+
+    margin-top:35px;
+
+}
+
+/* ======================================================
+   IMPROVEMENT SECTION
+====================================================== */
+
+.improvement-section{
+
+    margin-top:35px;
+
+}
+
+/* ======================================================
+   INTEGRITY SECTION
+====================================================== */
+
+.integrity-section{
+
+    margin-top:35px;
+
+}
+
+/* ======================================================
+   FOOTER
+====================================================== */
+
+.results-footer{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin:45px 0 20px;
+
+}
+
+.dashboard-btn{
+
+    border:none;
+
+    cursor:pointer;
+
+    padding:15px 38px;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        #10b981,
+        #059669
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    box-shadow:
+        0 10px 25px rgba(16,185,129,.35);
+
+}
+
+.dashboard-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ======================================================
+   LOADING
+====================================================== */
+
+.results-loading{
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+.loader{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    border:5px solid #e5e7eb;
+
+    border-top-color:#10b981;
+
+    animation:spin 1s linear infinite;
+
+}
+
+.results-loading h2{
+
+    color:#475569;
+
+    font-size:22px;
+
+}
+
+/* ======================================================
+   ERROR
+====================================================== */
+
+.results-error{
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+.results-error button{
+
+    border:none;
+
+    padding:15px 30px;
+
+    border-radius:14px;
+
+    background:#10b981;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media(max-width:1300px){
+
+    .analytics-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:1100px){
+
+    .score-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:700px){
+
+    .results-container{
+
+        padding:20px;
+
+    }
+
+    .score-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+/* ======================================================
+   ANIMATION
+====================================================== */
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
