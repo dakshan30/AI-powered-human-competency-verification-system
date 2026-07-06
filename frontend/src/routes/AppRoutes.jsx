@@ -21,6 +21,8 @@ import RoleProtectedRoute from "../components/common/RoleProtectedRoute";
 import Candidates from "../pages/admin/Candidates";
 
 import Analytics from "../pages/admin/Analytics";
+import Reports from "../pages/admin/Reports";
+import CandidateAssessment from "../pages/admin/CandidateAssessment";
 
 import UploadResume from "../pages/candidate/UploadResume";
 
@@ -103,10 +105,36 @@ const AppRoutes = () => {
           }
         />
 
+        <Route
+          path="/admin/reports"
+          element={
+            <RoleProtectedRoute
+              allowedRoles={["admin"]}
+            >
+              <Reports />
+            </RoleProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/interview/:id/report"
+          element={
+            <RoleProtectedRoute
+              allowedRoles={["admin"]}
+            >
+              <CandidateAssessment />
+            </RoleProtectedRoute>
+          }
+        />
+
       <Route
         path="/admin/interview/:id/decision"
         element={
-          <HiringDecision />
+          <RoleProtectedRoute
+            allowedRoles={["admin"]}
+          >
+            <HiringDecision />
+          </RoleProtectedRoute>
         }
       />
 

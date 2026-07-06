@@ -2,7 +2,7 @@ import React from "react";
 
 import GlassCard from "./GlassCard";
 
-import "../../styles/dashboard/activityCard.css";
+import "./activityCard.css";
 
 const formatDate = (date) => {
 
@@ -123,9 +123,7 @@ const ActivityCard = ({
                                                 Competency Score :
 
                                                 {" "}
-
-                                                <strong>
-
+                                              <strong>
                                                     {activity.competency}%
 
                                                 </strong>

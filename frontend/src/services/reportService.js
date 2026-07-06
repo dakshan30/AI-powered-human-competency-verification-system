@@ -2,6 +2,25 @@ import API from "./api";
 
 /*
 ====================================
+GET REPORTS
+====================================
+*/
+
+export const getReports =
+  async (params = {}) => {
+    const response =
+      await API.get(
+        "/reports",
+        {
+          params,
+        }
+      );
+
+    return response.data;
+  };
+
+/*
+====================================
 DOWNLOAD REPORT
 ====================================
 */

@@ -24,7 +24,7 @@ import IntegrityReport from "../../components/results/IntegrityReport";
 import QuestionAnalysis from "../../components/results/QuestionAnalysis";
 
 import {
-  getInterview,
+  getInterviewReport,
 } from "../../services/interviewService";
 
 import {
@@ -50,7 +50,7 @@ const CandidateAssessment = () => {
       async () => {
         try {
           const response =
-            await getInterview(
+            await getInterviewReport(
               id
             );
 

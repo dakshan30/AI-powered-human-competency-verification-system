@@ -1,0 +1,509 @@
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  FaDownload,
+  FaExclamationTriangle,
+  FaEye,
+  FaFileAlt,
+} from "react-icons/fa";
+
+import {
+  Link,
+} from "react-router-dom";
+
+import DashboardLayout from "../../components/dashboard/shared/DashboardLayout";
+import EmptyState from "../../components/dashboard/shared/EmptyState";
+import FilterDropdown from "../../components/dashboard/shared/FilterDropdown";
+import LoadingSkeleton from "../../components/dashboard/shared/LoadingSkeleton";
+import SearchBar from "../../components/dashboard/shared/SearchBar";
+import SectionHeader from "../../components/dashboard/shared/SectionHeader";
+import TablePagination from "../../components/dashboard/shared/TablePagination";
+import {
+  downloadReport,
+  getReports,
+} from "../../services/reportService";
+
+const REPORT_PAGE_SIZE =
+  10;
+
+const recommendationOptions = [
+  "All",
+  "STRONG_HIRE",
+  "HIRE",
+  "HOLD",
+  "REJECT",
+];
+
+const statusOptions = [
+  "All",
+  "completed",
+  "hire",
+  "hold",
+  "reject",
+];
+
+const normalizeLabel =
+  (value) => {
+    if (!value) {
+      return "N/A";
+    }
+
+    return value
+      .split("_")
+      .join(" ")
+      .replace(
+        /\b\w/g,
+        (char) =>
+          char.toUpperCase()
+      );
+  };
+
+const formatDate =
+  (value) => {
+    if (!value) {
+      return "N/A";
+    }
+
+    return new Date(
+      value
+    ).toLocaleString();
+  };
+
+const Reports = () => {
+  const [loading, setLoading] =
+    useState(true);
+
+  const [downloadingId, setDownloadingId] =
+    useState("");
+
+  const [error, setError] =
+    useState("");
+
+  const [reports, setReports] =
+    useState([]);
+
+  const [pagination, setPagination] =
+    useState({
+      page: 1,
+      limit:
+        REPORT_PAGE_SIZE,
+      totalPages: 0,
+      totalRecords: 0,
+    });
+
+  const [search, setSearch] =
+    useState("");
+
+  const [debouncedSearch, setDebouncedSearch] =
+    useState("");
+
+  const [recommendation, setRecommendation] =
+    useState("All");
+
+  const [status, setStatus] =
+    useState("All");
+
+  useEffect(() => {
+    const timer =
+      window.setTimeout(
+        () => {
+          setDebouncedSearch(
+            search.trim()
+          );
+        },
+        350
+      );
+
+    return () =>
+      window.clearTimeout(
+        timer
+      );
+  }, [search]);
+
+  useEffect(() => {
+    setPagination((current) => ({
+      ...current,
+      page: 1,
+    }));
+  }, [
+    debouncedSearch,
+    recommendation,
+    status,
+  ]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadReports =
+      async () => {
+        setLoading(true);
+        setError("");
+
+        try {
+          const response =
+            await getReports({
+              page:
+                pagination.page,
+              limit:
+                pagination.limit,
+              search:
+                debouncedSearch,
+              recommendation,
+              status,
+            });
+
+          if (!isMounted) {
+            return;
+          }
+
+          const reportData =
+            response?.data
+              ?.reports || [];
+
+          const paginationData =
+            response?.data
+              ?.pagination || {};
+
+          setReports(
+            reportData
+          );
+
+          setPagination(
+            (current) => ({
+              ...current,
+              page:
+                paginationData.page ||
+                current.page,
+              limit:
+                paginationData.limit ||
+                current.limit,
+              totalPages:
+                paginationData.totalPages ||
+                0,
+              totalRecords:
+                paginationData.totalRecords ||
+                0,
+            })
+          );
+        } catch (requestError) {
+          if (!isMounted) {
+            return;
+          }
+
+          setReports([]);
+
+          setPagination(
+            (current) => ({
+              ...current,
+              totalPages: 0,
+              totalRecords: 0,
+            })
+          );
+
+          setError(
+            requestError
+              ?.response?.data
+              ?.message ||
+              "Unable to load reports right now."
+          );
+        } finally {
+          if (isMounted) {
+            setLoading(false);
+          }
+        }
+      };
+
+    loadReports();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [
+    debouncedSearch,
+    pagination.page,
+    pagination.limit,
+    recommendation,
+    status,
+  ]);
+
+  const handleDownload =
+    async (
+      interviewId
+    ) => {
+      try {
+        setDownloadingId(
+          interviewId
+        );
+
+        await downloadReport(
+          interviewId
+        );
+      } catch (downloadError) {
+        setError(
+          downloadError
+            ?.response?.data
+            ?.message ||
+            "Failed to download report."
+        );
+      } finally {
+        setDownloadingId(
+          ""
+        );
+      }
+    };
+
+  const handlePageChange =
+    (nextPage) => {
+      if (
+        nextPage < 1 ||
+        (
+          pagination.totalPages >
+            0 &&
+          nextPage >
+            pagination.totalPages
+        )
+      ) {
+        return;
+      }
+
+      setPagination(
+        (current) => ({
+          ...current,
+          page: nextPage,
+        })
+      );
+    };
+
+  return (
+    <DashboardLayout>
+      <SectionHeader
+        title="Reports"
+        subtitle="Review completed interview reports, download PDFs, and track recruiter outcomes from live MongoDB data."
+      />
+
+      <div className="table-controls reports-controls">
+        <SearchBar
+          value={search}
+          onChange={(event) =>
+            setSearch(
+              event.target.value
+            )
+          }
+          placeholder="Search by candidate name or email"
+        />
+
+        <div className="reports-controls__filters">
+          <FilterDropdown
+            value={
+              recommendation
+            }
+            onChange={(event) =>
+              setRecommendation(
+                event.target.value
+              )
+            }
+            options={
+              recommendationOptions
+            }
+          />
+
+          <FilterDropdown
+            value={status}
+            onChange={(event) =>
+              setStatus(
+                event.target.value
+              )
+            }
+            options={
+              statusOptions
+            }
+          />
+        </div>
+      </div>
+
+      {error ? (
+        <div className="reports-alert reports-alert--error">
+          <FaExclamationTriangle />
+          <span>{error}</span>
+        </div>
+      ) : null}
+
+      {loading ? (
+        <div className="reports-loading">
+          <LoadingSkeleton />
+          <LoadingSkeleton />
+        </div>
+      ) : reports.length === 0 ? (
+        <div className="table-wrapper">
+          <EmptyState
+            title="No reports found"
+            subtitle="Completed interviews that match your current search and filters will appear here."
+          />
+        </div>
+      ) : (
+        <>
+          <div className="table-wrapper">
+            <table className="dashboard-table reports-table">
+              <thead>
+                <tr>
+                  <th>
+                    Candidate
+                  </th>
+                  <th>Email</th>
+                  <th>
+                    Interview Date
+                  </th>
+                  <th>
+                    Competency
+                  </th>
+                  <th>
+                    ATS Score
+                  </th>
+                  <th>
+                    Recommendation
+                  </th>
+                  <th>
+                    Trust Score
+                  </th>
+                  <th>Status</th>
+                  <th>
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {reports.map(
+                  (
+                    report
+                  ) => (
+                    <tr
+                      key={
+                        report._id
+                      }
+                    >
+                      <td>
+                        <div className="reports-candidate">
+                          <span className="reports-candidate__icon">
+                            <FaFileAlt />
+                          </span>
+                          <div>
+                            <strong>
+                              {
+                                report.candidateName
+                              }
+                            </strong>
+                            <span>
+                              ID:{" "}
+                              {
+                                report._id
+                              }
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        {
+                          report.candidateEmail
+                        }
+                      </td>
+                      <td>
+                        {formatDate(
+                          report.interviewDate
+                        )}
+                      </td>
+                      <td>
+                        {`${report.competency || 0}%`}
+                      </td>
+                      <td>
+                        {`${report.atsScore || 0}%`}
+                      </td>
+                      <td>
+                        <span className="reports-pill reports-pill--recommendation">
+                          {normalizeLabel(
+                            report.recommendation
+                          )}
+                        </span>
+                      </td>
+                      <td>
+                        {`${report.trustScore || 0}%`}
+                      </td>
+                      <td>
+                        <span
+                          className={`status-badge ${String(
+                            report.status ||
+                              "completed"
+                          ).toLowerCase()}`}
+                        >
+                          {normalizeLabel(
+                            report.status
+                          )}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="reports-actions">
+                          <Link
+                            to={`/admin/interview/${report._id}/report`}
+                            className="reports-action reports-action--view"
+                          >
+                            <FaEye />
+                            <span>
+                              View Report
+                            </span>
+                          </Link>
+
+                          <button
+                            type="button"
+                            className="reports-action reports-action--download"
+                            onClick={() =>
+                              handleDownload(
+                                report._id
+                              )
+                            }
+                            disabled={
+                              downloadingId ===
+                              report._id
+                            }
+                          >
+                            <FaDownload />
+                            <span>
+                              {downloadingId ===
+                              report._id
+                                ? "Downloading..."
+                                : "Download PDF"}
+                            </span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          <TablePagination
+            page={pagination.page}
+            totalPages={
+              pagination.totalPages
+            }
+            totalRecords={
+              pagination.totalRecords
+            }
+            pageSize={
+              pagination.limit
+            }
+            onPageChange={
+              handlePageChange
+            }
+          />
+        </>
+      )}
+    </DashboardLayout>
+  );
+};
+
+export default Reports;

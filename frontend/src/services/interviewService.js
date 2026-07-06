@@ -28,6 +28,34 @@ export const getInterview = async (
 
 /*
 ====================================
+GET INTERVIEW REPORT
+====================================
+*/
+
+export const getInterviewReport =
+  async (
+    interviewId
+  ) => {
+    try {
+      const response =
+        await API.get(
+          `/interview/${interviewId}/report`
+        );
+
+      return response.data;
+    } catch (error) {
+      console.log(
+        "Get Interview Report Error:",
+        error.response?.data ||
+          error.message
+      );
+
+      throw error;
+    }
+  };
+
+/*
+====================================
 SUBMIT ANSWER
 ====================================
 */

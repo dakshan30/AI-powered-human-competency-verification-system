@@ -83,6 +83,34 @@
   .section-header h2 {
     font-size: 28px;
   }
+
+  .table-controls {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .search-bar {
+    width: auto;
+  }
+
+  .reports-controls__filters {
+    width: 100%;
+  }
+
+  .reports-controls__filters .filter-dropdown {
+    flex: 1;
+  }
+
+  .table-pagination {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .table-pagination__actions {
+    justify-content: space-between;
+  }
 }
 
 @media (max-width: 576px) {
@@ -100,5 +128,13 @@
 
   .dashboard-content {
     padding: 16px;
+  }
+
+  .reports-actions {
+    flex-direction: column;
+  }
+
+  .reports-action {
+    width: 100%;
   }
 }
