@@ -7,6 +7,108 @@ const fs =
 const path =
   require("path");
 
+const clampScore =
+  (value) =>
+    Math.max(
+      0,
+      Math.min(
+        100,
+        Number(value) || 0
+      )
+    );
+
+const safeText =
+  (value, fallback = "N/A") =>
+    value && String(value).trim()
+      ? String(value)
+      : fallback;
+
+const formatDateTime =
+  (value) => {
+    if (!value) {
+      return "N/A";
+    }
+
+    return new Date(
+      value
+    ).toLocaleString("en-IN", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+  };
+
+const drawSectionTitle =
+  (doc, title) => {
+    doc
+      .moveDown(0.8)
+      .font("Helvetica-Bold")
+      .fontSize(15)
+      .fillColor("#0F172A")
+      .text(title);
+
+    doc
+      .moveTo(50, doc.y + 6)
+      .lineTo(545, doc.y + 6)
+      .lineWidth(1)
+      .strokeColor("#D1D5DB")
+      .stroke();
+
+    doc.moveDown(0.8);
+  };
+
+const drawKeyValueGrid =
+  (doc, entries) => {
+    entries.forEach(
+      ([label, value]) => {
+        doc
+          .font("Helvetica-Bold")
+          .fontSize(10)
+          .fillColor("#475569")
+          .text(
+            `${label}: `,
+            {
+              continued:
+                true,
+            }
+          )
+          .font("Helvetica")
+          .fillColor("#111827")
+          .text(
+            safeText(value)
+          );
+      }
+    );
+  };
+
+const drawBulletList =
+  (doc, items, emptyText) => {
+    if (
+      !items ||
+      items.length === 0
+    ) {
+      doc
+        .font("Helvetica")
+        .fontSize(11)
+        .fillColor("#6B7280")
+        .text(emptyText);
+
+      return;
+    }
+
+    items.forEach((item) => {
+      doc
+        .font("Helvetica")
+        .fontSize(11)
+        .fillColor("#111827")
+        .text(
+          `- ${safeText(item)}`,
+          {
+            indent: 10,
+          }
+        );
+    });
+  };
+
 /*
 ====================================
 GENERATE PDF REPORT
@@ -43,7 +145,11 @@ exports.generatePDFReport =
           )
         ) {
           fs.mkdirSync(
-            reportsDir
+            reportsDir,
+            {
+              recursive:
+                true,
+            }
           );
         }
 
@@ -83,94 +189,204 @@ exports.generatePDFReport =
         */
 
         doc
+          .rect(
+            0,
+            0,
+            doc.page.width,
+            120
+          )
+          .fill("#0F172A");
+
+        doc
+          .fillColor("#F8FAFC")
+          .font("Helvetica-Bold")
           .fontSize(24)
           .text(
             "AI Competency Report",
+            50,
+            42
+          );
+
+        doc
+          .font("Helvetica")
+          .fontSize(11)
+          .fillColor("#CBD5E1")
+          .text(
+            "Enterprise interview assessment generated from live candidate, resume, and interview analytics.",
+            50,
+            78,
             {
-              align:
-                "center",
+              width: 430,
             }
           );
 
-        doc.moveDown();
-
-        /*
-        CANDIDATE
-        */
-
         doc
-          .fontSize(18)
-          .text(
-            "Candidate Information"
-          );
+          .fillColor("#111827")
+          .moveDown(3.2);
 
-        doc.moveDown(0.5);
+        drawSectionTitle(
+          doc,
+          "Executive Summary"
+        );
 
-        doc
-          .fontSize(12)
-          .text(
-            `Candidate ID: ${reportData.candidate}`
-          );
+        drawKeyValueGrid(doc, [
+          [
+            "Candidate",
+            reportData
+              .candidate?.name,
+          ],
+          [
+            "Email",
+            reportData
+              .candidate?.email,
+          ],
+          [
+            "Interview ID",
+            reportData
+              .interviewId,
+          ],
+          [
+            "Completed At",
+            formatDateTime(
+              reportData
+                .interviewMeta
+                ?.completedAt
+            ),
+          ],
+          [
+            "Recommendation",
+            reportData
+              .recommendation
+              ?.label,
+          ],
+          [
+            "Trust Score",
+            `${clampScore(
+              reportData
+                .trustScore
+            )}%`,
+          ],
+          [
+            "Candidate Rank",
+            reportData
+              .candidateRank,
+          ],
+          [
+            "ATS Score",
+            `${clampScore(
+              reportData
+                .resume
+                ?.atsScore
+            )}%`,
+          ],
+        ]);
 
-        /*
-        SCORES
-        */
+        drawSectionTitle(
+          doc,
+          "Resume Intelligence"
+        );
 
-        doc.moveDown();
+        drawKeyValueGrid(doc, [
+          [
+            "Detected Role",
+            reportData
+              .resume
+              ?.detectedRole,
+          ],
+          [
+            "Experience Level",
+            reportData
+              .resume
+              ?.experienceLevel,
+          ],
+          [
+            "Top Skills",
+            (
+              reportData
+                .resume
+                ?.skills || []
+            )
+              .slice(0, 12)
+              .join(", ") ||
+              "N/A",
+          ],
+        ]);
 
-        doc
-          .fontSize(18)
-          .text(
-            "Competency Scores"
-          );
-
-        doc.moveDown(0.5);
+        drawSectionTitle(
+          doc,
+          "Competency Scores"
+        );
 
         Object.entries(
-          reportData.scores
+          reportData.scores ||
+            {}
         ).forEach(
           ([key, value]) => {
-            doc.text(
-              `${key}: ${value}%`
-            );
+            doc
+              .font("Helvetica-Bold")
+              .fontSize(11)
+              .fillColor("#111827")
+              .text(
+                `${key}: `,
+                {
+                  continued:
+                    true,
+                }
+              )
+              .font("Helvetica")
+              .text(
+                `${clampScore(
+                  value
+                )}%`
+              );
           }
         );
 
-        /*
-        RECOMMENDATION
-        */
-
-        doc.moveDown();
-
-        doc
-          .fontSize(18)
-          .text(
-            "Hiring Recommendation"
-          );
-
-        doc.moveDown(0.5);
-
-        doc.text(
-          reportData
-            .recommendation
-            .recommendation
+        drawSectionTitle(
+          doc,
+          "Integrity Overview"
         );
 
-        doc.text(
-          reportData
-            .recommendation
-            .reason
+        drawKeyValueGrid(doc, [
+          [
+            "Warnings",
+            reportData
+              .integrity
+              ?.warnings,
+          ],
+          [
+            "Tab Switches",
+            reportData
+              .integrity
+              ?.tabSwitches,
+          ],
+          [
+            "Fullscreen Violations",
+            reportData
+              .integrity
+              ?.fullscreenViolations,
+          ],
+          [
+            "Suspicious Activity Score",
+            reportData
+              .integrity
+              ?.suspiciousActivityScore,
+          ],
+          [
+            "Integrity Flags",
+            (
+              reportData
+                .integrity
+                ?.flags || []
+            ).join(", ") ||
+              "None",
+          ],
+        ]);
+
+        drawSectionTitle(
+          doc,
+          "Strength Summary"
         );
-
-        /*
-        STRENGTHS
-        */
-
-        doc.moveDown();
-
-        doc
-          .fontSize(18)
-          .text("Strengths");
 
         reportData.analytics.strengths.forEach(
           (
