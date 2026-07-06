@@ -7,11 +7,19 @@ const router =
 const {
   getReports,
   generateReport,
-} = require("../controllers/reportController");
+  deleteReport,
+  archiveReportHandler,
+  exportReports,
+  getArchiveStatsHandler,
+} = require(
+  "../controllers/reportController"
+);
 
 const {
   protect,
-} = require("../middleware/authMiddleware");
+} = require(
+  "../middleware/authMiddleware"
+);
 
 /*
 ====================================
@@ -27,16 +35,62 @@ router.get(
 
 /*
 ====================================
-GENERATE REPORT
+GET ARCHIVE STATS
 ====================================
 */
 
 router.get(
-  "/candidate/:id",
-
+  "/archive/stats",
   protect,
+  getArchiveStatsHandler
+);
 
+/*
+====================================
+EXPORT REPORTS
+====================================
+*/
+
+router.get(
+  "/export",
+  protect,
+  exportReports
+);
+
+/*
+====================================
+GENERATE REPORT (PDF)
+====================================
+*/
+
+router.get(
+  "/:id",
+  protect,
   generateReport
+);
+
+/*
+====================================
+ARCHIVE REPORT
+====================================
+*/
+
+router.put(
+  "/:id/archive",
+  protect,
+  archiveReportHandler
+);
+
+/*
+====================================
+DELETE REPORT
+====================================
+*/
+
+router.delete(
+  "/:id",
+  protect,
+  deleteReport
 );
 
 module.exports = router;

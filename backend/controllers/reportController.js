@@ -12,6 +12,35 @@ const {
   generatePDFReport,
 } = require("../services/pdfReportService");
 
+const {
+  getCachedReport,
+  setCachedReport,
+  getCachedReportList,
+  setCachedReportList,
+  invalidateReportCache,
+  invalidateAllListCaches,
+} = require(
+  "../services/reportCachingService"
+);
+
+const {
+  exportReportsToCSV,
+  exportReportsToExcel,
+  exportSingleReportToCSV,
+  cleanOldExports,
+} = require(
+  "../services/reportExportService"
+);
+
+const {
+  archiveReport,
+  isReportArchived,
+  restoreReport,
+  getArchiveStats,
+} = require(
+  "../services/reportArchivingService"
+);
+
 /*
 ====================================
 LIST REPORTS
@@ -408,5 +437,438 @@ exports.generateReport =
         message:
           "Report generation failed",
       });
+    }
+  };
+
+/*
+====================================
+DELETE REPORT
+====================================
+*/
+
+exports.deleteReport =
+  async (req, res) => {
+    try {
+      if (
+        req.user?.role !==
+        "admin"
+      ) {
+        return res
+          .status(403)
+          .json({
+            success: false,
+            message:
+              "Admin access required",
+          });
+      }
+
+      const interview =
+        await Interview.findById(
+          req.params.id
+        );
+
+      if (!interview) {
+        return res
+          .status(404)
+          .json({
+            success: false,
+            message:
+              "Report not found",
+          });
+      }
+
+      // Permanently delete the report
+      await Interview.deleteOne({
+        _id: interview._id,
+      });
+
+      invalidateReportCache(
+        interview._id
+      );
+
+      invalidateAllListCaches();
+
+      return res
+        .status(200)
+        .json({
+          success: true,
+          message:
+            "Report deleted permanently",
+          deletedAt:
+            new Date(),
+        });
+    } catch (error) {
+      console.error(
+        "Delete report error:",
+        error
+      );
+
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message:
+            "Failed to delete report",
+        });
+    }
+  };
+
+/*
+====================================
+ARCHIVE REPORT
+====================================
+*/
+
+exports.archiveReportHandler =
+  async (req, res) => {
+    try {
+      if (
+        req.user?.role !==
+        "admin"
+      ) {
+        return res
+          .status(403)
+          .json({
+            success: false,
+            message:
+              "Admin access required",
+          });
+      }
+
+      const interview =
+        await Interview.findById(
+          req.params.id
+        );
+
+      if (!interview) {
+        return res
+          .status(404)
+          .json({
+            success: false,
+            message:
+              "Report not found",
+          });
+      }
+
+      // Check if already archived
+      if (
+        interview.report
+          ?.archived
+      ) {
+        return res
+          .status(400)
+          .json({
+            success: false,
+            message:
+              "Report already archived",
+          });
+      }
+
+      // Archive with full report data
+      const archived =
+        await archiveReport(
+          interview._id,
+          {
+            candidateName:
+              interview.candidateName,
+            candidateEmail:
+              interview.candidateEmail,
+            interviewDate:
+              interview.interviewDate,
+            competency:
+              interview.competency,
+            atsScore:
+              interview.atsScore,
+            trustScore:
+              interview.trustScore,
+            recommendation:
+              interview.recommendation,
+            status:
+              interview.status,
+            report:
+              interview.report,
+          }
+        );
+
+      if (!archived) {
+        return res
+          .status(500)
+          .json({
+            success: false,
+            message:
+              "Failed to archive report",
+          });
+      }
+
+      invalidateReportCache(
+        interview._id
+      );
+
+      invalidateAllListCaches();
+
+      return res
+        .status(200)
+        .json({
+          success: true,
+          message:
+            "Report archived successfully",
+          archivedAt:
+            new Date(),
+        });
+    } catch (error) {
+      console.error(
+        "Archive report error:",
+        error
+      );
+
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message:
+            "Failed to archive report",
+        });
+    }
+  };
+
+/*
+====================================
+EXPORT REPORTS
+====================================
+*/
+
+exports.exportReports =
+  async (req, res) => {
+    try {
+      if (
+        req.user?.role !==
+        "admin"
+      ) {
+        return res
+          .status(403)
+          .json({
+            success: false,
+            message:
+              "Admin access required",
+          });
+      }
+
+      const format =
+        (
+          req.query.format ||
+          "csv"
+        )
+          .toLowerCase()
+          .trim();
+
+      if (
+        !["csv", "xlsx"].includes(
+          format
+        )
+      ) {
+        return res
+          .status(400)
+          .json({
+            success: false,
+            message:
+              "Invalid export format. Use 'csv' or 'xlsx'",
+          });
+      }
+
+      const pipeline = [
+        {
+          $match: {
+            status:
+              "completed",
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField:
+              "candidate",
+            foreignField:
+              "_id",
+            as: "candidate",
+          },
+        },
+        {
+          $unwind: {
+            path:
+              "$candidate",
+            preserveNullAndEmptyArrays:
+              true,
+          },
+        },
+        {
+          $lookup: {
+            from: "resumes",
+            localField:
+              "resume",
+            foreignField:
+              "_id",
+            as: "resume",
+          },
+        },
+        {
+          $unwind: {
+            path: "$resume",
+            preserveNullAndEmptyArrays:
+              true,
+          },
+        },
+        {
+          $project: {
+            _id: 1,
+            candidateName: {
+              $ifNull: [
+                "$candidate.name",
+                "Unknown",
+              ],
+            },
+            candidateEmail: {
+              $ifNull: [
+                "$candidate.email",
+                "",
+              ],
+            },
+            interviewDate:
+              "$completedAt",
+            competency: {
+              $ifNull: [
+                "$overallScores.competency",
+                0,
+              ],
+            },
+            atsScore: {
+              $ifNull: [
+                "$resume.atsScore",
+                0,
+              ],
+            },
+            trustScore: {
+              $ifNull: [
+                "$report.trustScore",
+                100,
+              ],
+            },
+            recommendation: {
+              $ifNull: [
+                "$report.recommendation",
+                "HOLD",
+              ],
+            },
+            status: 1,
+          },
+        },
+      ];
+
+      const reports =
+        await Interview.aggregate(
+          pipeline
+        );
+
+      if (
+        reports.length === 0
+      ) {
+        return res
+          .status(400)
+          .json({
+            success: false,
+            message:
+              "No reports to export",
+          });
+      }
+
+      let filePath;
+
+      if (
+        format === "csv"
+      ) {
+        filePath =
+          await exportReportsToCSV(
+            reports,
+            "bulk-report-export"
+          );
+      } else {
+        filePath =
+          await exportReportsToExcel(
+            reports,
+            "bulk-report-export"
+          );
+      }
+
+      return res.download(
+        filePath,
+        `reports-export.${format}`,
+        (err) => {
+          if (err) {
+            console.error(
+              "Download error:",
+              err
+            );
+          }
+        }
+      );
+    } catch (error) {
+      console.error(
+        "Export reports error:",
+        error
+      );
+
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message:
+            "Failed to export reports",
+        });
+    }
+  };
+
+/*
+====================================
+GET ARCHIVE STATS
+====================================
+*/
+
+exports.getArchiveStatsHandler =
+  async (req, res) => {
+    try {
+      if (
+        req.user?.role !==
+        "admin"
+      ) {
+        return res
+          .status(403)
+          .json({
+            success: false,
+            message:
+              "Admin access required",
+          });
+      }
+
+      const stats =
+        await getArchiveStats();
+
+      return res
+        .status(200)
+        .json({
+          success: true,
+          data: stats,
+        });
+    } catch (error) {
+      console.error(
+        "Get archive stats error:",
+        error
+      );
+
+      return res
+        .status(500)
+        .json({
+          success: false,
+          message:
+            "Failed to get archive stats",
+        });
     }
   };
