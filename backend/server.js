@@ -4,6 +4,7 @@ console.log("USE_MOCK value:", process.env.USE_MOCK);
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const initializeReportsSystem = require("./utils/initializeReportsSystem");
 
 const authRoutes = require("./routes/authRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
@@ -18,6 +19,9 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 // ✅ Connect to DB after dotenv is loaded
 connectDB();
+
+// ✅ Initialize Reports System
+initializeReportsSystem();
 
 const app = express();
 

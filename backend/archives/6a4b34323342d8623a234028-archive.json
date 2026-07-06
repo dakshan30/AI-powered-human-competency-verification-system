@@ -1,0 +1,23 @@
+{
+  "originalReportId": "6a4b34323342d8623a234028",
+  "archivedAt": "2026-07-06T06:13:20.413Z",
+  "archivedBy": "system",
+  "status": "archived",
+  "reportData": {
+    "status": "completed",
+    "report": {
+      "recommendation": "REJECT",
+      "trustScore": 100,
+      "candidateRank": "Average",
+      "strengthsSummary": [],
+      "weaknessesSummary": [],
+      "improvementPlan": [
+        "Practice advanced coding problems and system design.",
+        "Improve communication through mock interviews.",
+        "Participate in technical discussions regularly.",
+        "Solve algorithmic challenges consistently."
+      ]
+    }
+  },
+  "hash": "877c37a146acb00090a53a60c3953c0a7990761f637201eb49f59321efa7611e"
+}
