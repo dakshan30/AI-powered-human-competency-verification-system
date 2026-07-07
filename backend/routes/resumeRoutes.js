@@ -1,34 +1,24 @@
-const express =
-  require("express");
-
-const router =
-  express.Router();
-
-const upload =
-  require("../middleware/uploadMiddleware");
-
-const {
-  uploadResume,
-} = require("../controllers/resumeController");
-
-const {
-  protect,
-} = require("../middleware/authMiddleware");
+const express = require("express");
+const router = express.Router();
+const uploadMiddleware = require("../middleware/uploadMiddleware");
+const { protect } = require("../middleware/authMiddleware");
+const { uploadAndParseResume, getCandidateProfile } = require("../controllers/resumeController");
 
 /*
-====================================
-UPLOAD RESUME
-====================================
+=====================================================
+RESUME INTELLIGENCE ROUTING SYSTEM (JWT & MUTTER LOCKED)
+=====================================================
 */
 
-router.post(
-  "/upload",
+// Chain token authorization across all pipeline handles
+router.use(protect);
 
-  protect,
+// POST /api/resume/upload
+// Ingests single data form binary fields attached under key namespace "resume"
+router.post("/upload", uploadMiddleware.single("resume"), uploadAndParseResume);
 
-  upload.single("resume"),
-
-  uploadResume
-);
+// GET /api/resume/my-profile
+// Fetches the active candidate resume analysis metrics
+router.get("/my-profile", getCandidateProfile);
 
 module.exports = router;

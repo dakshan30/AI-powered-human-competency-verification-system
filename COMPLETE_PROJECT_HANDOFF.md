@@ -514,7 +514,7 @@ DELETE /api/reports/:id          - Delete report
 ```
 
 All routes protected with `protect` middleware (JWT verification)
-
+ 
 ### `/backend/models/` - Data Models
 
 #### Interview.js

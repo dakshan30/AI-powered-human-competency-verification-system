@@ -1,0 +1,431 @@
+/* =====================================================
+   ANALYTICS MODULE STYLES - PRODUCTION LEVEL
+   ===================================================== */
+
+/* Filters Panel */
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.analytics-title-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.analytics-title-area h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.analytics-title-area p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.analytics-filters-bar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  border: 1px solid #f0f0f0;
+}
+
+.analytics-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.analytics-filter-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.analytics-input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: #333;
+  background-color: #fff;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.analytics-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+}
+
+/* Button & Toggle Group */
+.analytics-toggle-group {
+  display: flex;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  height: 38px;
+  align-self: flex-end;
+}
+
+.analytics-toggle-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #f8f9fa;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.analytics-toggle-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.analytics-toggle-btn--active {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+.analytics-toggle-btn--active:hover {
+  background-color: #1565c0;
+  color: #fff;
+}
+
+.analytics-reset-btn {
+  padding: 0.5rem 1.25rem;
+  background-color: #f5f5f5;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  height: 38px;
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.analytics-reset-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* 4-Column Overview KPI Grid */
+.analytics-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: transparent;
+}
+
+.metric-card--primary::before { background-color: #1976d2; }
+.metric-card--success::before { background-color: #2e7d32; }
+.metric-card--warning::before { background-color: #ff9800; }
+.metric-card--danger::before  { background-color: #d32f2f; }
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.metric-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.metric-card__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-card__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.metric-card__change {
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.metric-card__change--up { color: #2e7d32; }
+.metric-card__change--down { color: #d32f2f; }
+
+.metric-card__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.metric-card--primary .metric-card__icon-wrapper {
+  background-color: rgba(25, 118, 210, 0.1);
+  color: #1976d2;
+}
+
+.metric-card--success .metric-card__icon-wrapper {
+  background-color: rgba(46, 125, 50, 0.1);
+  color: #2e7d32;
+}
+
+.metric-card--warning .metric-card__icon-wrapper {
+  background-color: rgba(255, 152, 0, 0.1);
+  color: #ff9800;
+}
+
+.metric-card--danger .metric-card__icon-wrapper {
+  background-color: rgba(211, 47, 47, 0.1);
+  color: #d32f2f;
+}
+
+/* Responsive Grid Rows for Charts */
+.analytics-charts-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.analytics-charts-row--full {
+  grid-template-columns: 1fr;
+}
+
+/* Canvas Chart Box */
+.chart-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.chart-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 0.75rem;
+}
+
+.chart-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.chart-card__subtitle {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.chart-card__body {
+  flex: 1;
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+}
+
+/* Alert States / Error Alert */
+.analytics-alert {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  animation: analyticsFadeIn 0.3s ease-out;
+}
+
+.analytics-alert--error {
+  background-color: #fee;
+  border-left: 4px solid #d32f2f;
+  color: #c00;
+}
+
+/* Empty State Styling */
+.analytics-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  border: 2px dashed #e0e0e0;
+  color: #888;
+  gap: 1rem;
+  text-align: center;
+}
+
+.analytics-empty-state__icon {
+  font-size: 3rem;
+  color: #ccc;
+}
+
+.analytics-empty-state h3 {
+  margin: 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.analytics-empty-state p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Skeleton Loading Animation */
+.skeleton-loader {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skeleton-pulse {
+  background: linear-gradient(-90deg, #f0f0f0 0%, #f8f8f8 50%, #f0f0f0 100%);
+  background-size: 400% 400%;
+  animation: pulseAnimation 1.5s ease infinite;
+}
+
+@keyframes pulseAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.skeleton-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.skeleton-metric-card {
+  height: 98px;
+  border-radius: 0.75rem;
+}
+
+.skeleton-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.skeleton-chart-card {
+  height: 380px;
+  border-radius: 0.75rem;
+}
+
+@keyframes analyticsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .analytics-overview-grid,
+  .skeleton-metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .analytics-charts-row,
+  .skeleton-charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .analytics-overview-grid,
+  .skeleton-metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .analytics-toggle-group,
+  .analytics-reset-btn {
+    align-self: stretch;
+  }
+}

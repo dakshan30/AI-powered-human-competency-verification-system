@@ -14,6 +14,7 @@ const interviewRoutes = require("./routes/interviewRoutes");
 const analyticsRoutes = require("./routes/analyticsRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const integrityRoutes = require("./routes/integrityRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
@@ -48,6 +49,7 @@ app.use("/api/interview", interviewRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/integrity", integrityRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
