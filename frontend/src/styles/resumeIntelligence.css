@@ -1,0 +1,396 @@
+/* =====================================================
+   RESUME INTELLIGENCE PANEL STYLES - PRODUCTION LEVEL
+   ===================================================== */
+
+/* Page layout structure */
+.resume-intel-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.resume-intel-header {
+  margin-bottom: 2.5rem;
+}
+
+.resume-intel-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 0.25rem 0;
+}
+
+.resume-intel-header p {
+  color: #666;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* 1. Intake File Drop Zone Area */
+.intake-drop-zone-card {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: resumeFadeIn 0.3s ease-out;
+}
+
+.drop-zone-box {
+  width: 100%;
+  max-width: 550px;
+  border: 2px dashed #bbdefb;
+  background-color: #fafcff;
+  border-radius: 0.5rem;
+  padding: 3rem 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.drop-zone-box:hover {
+  border-color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.03);
+  transform: translateY(-1px);
+}
+
+.drop-zone-icon {
+  font-size: 3rem;
+  color: #1976d2;
+}
+
+.drop-zone-box h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.drop-zone-box p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* Track Select inputs */
+.intake-form-controls {
+  width: 100%;
+  max-width: 550px;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.intake-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  text-align: left;
+}
+
+.intake-form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.intake-select-input, .intake-text-input {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  outline: none;
+  background-color: #fff;
+}
+
+.intake-select-input:focus, .intake-text-input:focus {
+  border-color: #1976d2;
+}
+
+.upload-submit-btn {
+  padding: 0.8rem 1.5rem;
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(25, 118, 210, 0.2);
+}
+
+.upload-submit-btn:hover:not(:disabled) {
+  background-color: #1565c0;
+}
+
+.upload-submit-btn:disabled {
+  background-color: #bbdefb;
+  cursor: not-allowed;
+}
+
+/* File Selected Pill */
+.selected-file-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  color: #0d47a1;
+  font-weight: 600;
+}
+
+.remove-file-cross {
+  cursor: pointer;
+  color: #d32f2f;
+  font-size: 0.9rem;
+}
+
+/* 2. Structured Dashboard Layout */
+.profile-dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  animation: resumeFadeIn 0.3s ease-out;
+}
+
+@media (max-width: 900px) {
+  .profile-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.profile-main-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-card {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  padding: 1.75rem;
+}
+
+.profile-card-header {
+  border-bottom: 1px solid #eef0f2;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-card-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Text overview entries */
+.overview-details-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.overview-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.overview-detail-item label {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.overview-detail-item span {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Skills Pills Arrays */
+.skills-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-pill-item {
+  padding: 0.375rem 0.75rem;
+  background-color: rgba(25, 118, 210, 0.06);
+  color: #1976d2;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: 1px solid rgba(25, 118, 210, 0.1);
+}
+
+/* Project Highlights list */
+.project-highlight-item {
+  background-color: #fafcff;
+  border-left: 3px solid #1976d2;
+  padding: 1rem;
+  border-radius: 0 0.375rem 0.375rem 0;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.project-highlight-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 3. Progress Ring ATS Gauge Container */
+.ats-gauge-card {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.progress-ring-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin-bottom: 1.5rem;
+}
+
+.progress-ring-circle-bg {
+  fill: transparent;
+  stroke: #eef0f2;
+  stroke-width: 12;
+}
+
+.progress-ring-circle-fill {
+  fill: transparent;
+  stroke: #1976d2;
+  stroke-width: 12;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 0.5s ease-out;
+}
+
+.progress-ring-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #333;
+}
+
+.ats-score-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.ats-description-text {
+  font-size: 0.8rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+/* Actions */
+.re-upload-btn {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.25rem;
+  color: #666;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.re-upload-btn:hover {
+  background-color: #f8f9fa;
+  color: #1976d2;
+  border-color: #1976d2;
+}
+
+/* Global Alert banner */
+.resume-alert {
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: alertSlideDown 0.3s ease-out;
+}
+
+.resume-alert--success {
+  background-color: rgba(46, 125, 50, 0.1);
+  border-left: 4px solid #2e7d32;
+  color: #2e7d32;
+}
+
+.resume-alert--error {
+  background-color: rgba(211, 47, 47, 0.1);
+  border-left: 4px solid #d32f2f;
+  color: #d32f2f;
+}
+
+/* Animations */
+@keyframes resumeFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes alertSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

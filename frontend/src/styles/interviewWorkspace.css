@@ -1,0 +1,373 @@
+/* =====================================================
+   CANDIDATE INTERVIEW WORKSPACE STYLES - PRODUCTION LEVEL
+   ===================================================== */
+
+/* Workspace Containers */
+.workspace-page-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* 1. Preparation Workspace Panel */
+.prep-card-container {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 2.5rem;
+  text-align: center;
+  animation: prepFadeIn 0.3s ease-out;
+}
+
+.prep-header-icon {
+  font-size: 3.5rem;
+  color: #1976d2;
+  margin-bottom: 1.5rem;
+}
+
+.prep-card-container h2 {
+  font-size: 1.75rem;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.prep-card-container p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.prep-form-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.prep-select-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #555;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.prep-dropdown-field {
+  padding: 0.75rem 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  background-color: #fff;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.prep-dropdown-field:focus {
+  border-color: #1976d2;
+}
+
+.start-interview-btn {
+  padding: 0.875rem 1.75rem;
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(25, 118, 210, 0.2);
+}
+
+.start-interview-btn:hover:not(:disabled) {
+  background-color: #1565c0;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(25, 118, 210, 0.3);
+}
+
+.start-interview-btn:disabled {
+  background-color: #bbdefb;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 2. Technical Evaluation Workspace */
+.eval-workspace-container {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: prepFadeIn 0.3s ease-out;
+}
+
+.workspace-status-header {
+  background-color: #f8f9fa;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid #eef0f2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.track-indicator-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.1);
+  padding: 0.375rem 0.75rem;
+  border-radius: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.progress-numeric-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.question-display-banner {
+  padding: 2rem;
+  background-color: rgba(25, 118, 210, 0.02);
+  border-bottom: 1px solid #eef0f2;
+}
+
+.question-display-banner h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1976d2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.question-display-text {
+  font-size: 1.15rem;
+  color: #333;
+  line-height: 1.6;
+  font-weight: 600;
+  margin: 0;
+}
+
+.answer-entry-area {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.answer-text-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.answer-textarea-field {
+  width: 100%;
+  min-height: 250px;
+  padding: 1rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.answer-textarea-field:focus {
+  border-color: #1976d2;
+}
+
+.workspace-actions-footer {
+  padding: 1.25rem 2rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eef0f2;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit-answer-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #2e7d32;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(46, 125, 50, 0.2);
+}
+
+.submit-answer-btn:hover:not(:disabled) {
+  background-color: #1b5e20;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+}
+
+.submit-answer-btn:disabled {
+  background-color: #c8e6c9;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* 3. Results / Completion Dashboard */
+.results-completion-card {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  border: 1px solid #eef0f2;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 3rem 2rem;
+  text-align: center;
+  animation: prepFadeIn 0.3s ease-out;
+}
+
+.results-success-icon {
+  font-size: 4rem;
+  color: #2e7d32;
+  margin-bottom: 1.5rem;
+}
+
+.results-completion-card h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.results-completion-card p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+}
+
+.scores-badge-layout {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.score-badge-box {
+  background-color: #f8f9fa;
+  border: 1px solid #eef0f2;
+  border-radius: 0.75rem;
+  padding: 1.5rem 2rem;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+}
+
+.score-badge-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.score-badge-numeric {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1976d2;
+}
+
+.recommendation-badge-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.recommendation-badge-text--STRONG_HIRE {
+  color: #2e7d32;
+}
+
+.recommendation-badge-text--HIRE {
+  color: #1b5e20;
+}
+
+.recommendation-badge-text--HOLD {
+  color: #ff9800;
+}
+
+.recommendation-badge-text--REJECT {
+  color: #d32f2f;
+}
+
+.workspace-finish-btn {
+  padding: 0.75rem 2rem;
+  background-color: #1976d2;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.workspace-finish-btn:hover {
+  background-color: #1565c0;
+}
+
+/* Alert styles */
+.workspace-alert {
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: alertSlideDown 0.3s ease-out;
+}
+
+.workspace-alert--error {
+  background-color: rgba(211, 47, 47, 0.1);
+  border-left: 4px solid #d32f2f;
+  color: #d32f2f;
+}
+
+/* Keyframes */
+@keyframes prepFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes alertSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
